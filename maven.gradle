@@ -51,7 +51,7 @@ signing {
 }
 
 task publish(type: Copy, dependsOn: install) {
-	group = project.description
+	group = 'Liferay'
 	description = 'Prepares artifacts for publishing to Maven Central.'
 	from 'build/poms'
 	into 'build/libs'

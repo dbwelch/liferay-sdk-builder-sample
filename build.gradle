@@ -1,45 +1,26 @@
 apply plugin: 'java'
 
+apply from: 'maven.gradle'
+apply from: 'https://raw.githubusercontent.com/brunofarache/liferay-mobile-sdk/master/formatter.gradle'
+format.workingDir = 'src/main/java'
+
 sourceCompatibility = JavaVersion.VERSION_1_6
 
 repositories {
 	mavenLocal()
 	mavenCentral()
-
-	maven {
-		url 'https://repository.liferay.com/nexus/content/groups/liferay-ce'
-	}
-}
-
-configurations {
-	formatter
 }
 
 dependencies {
 	compile group: 'com.liferay.mobile', name: 'liferay-sdk-builder', version: '6.2.0.+'
-
-	formatter group: 'com.liferay.portal', name: 'portal-impl', version: '6.2.0-ga1'
-	formatter group: 'com.liferay.portal', name: 'portal-service', version: '6.2.0-ga1'
-	formatter group: 'com.liferay.portal', name: 'util-java', version: '6.2.0-ga1'
-	formatter group: 'dom4j', name: 'dom4j', version: '1.6.1'
-	formatter group: 'org.apache.ant', name: 'ant', version: '1.8.2'
 }
-
 
 configurations {
 	compile.exclude module: 'liferay-sdk-builder-sample'
 }
 
-task format(type: JavaExec) {
-	group = project.description
-	description = 'Runs Liferay Source Formatter to format files within src/main/java.'
-	main = 'com.liferay.portal.tools.sourceformatter.SourceFormatter'
-	classpath = configurations.formatter
-	workingDir = 'src/main/java'
-}
-
 task generate(type: JavaExec) {
-	group = project.description
+	group = 'Liferay'
 	description = 'Runs Liferay SDK Builder with arguments set in gradle.properties.'
 	main = 'com.liferay.mobile.sdk.SDKBuilder'
 	classpath = project.runtimeClasspath + configurations.compile
@@ -54,5 +35,3 @@ task generate(type: JavaExec) {
 		"destination=$destination"
 	]
 }
-
-apply from: 'maven.gradle'
