@@ -1,6 +1,0 @@
-* Clone this project
-* Run: ./gradlew generate
-
-This will run the dummy Builder implementation located [here](src/main/java/com/liferay/mobile/sample/SampleSDKBuilder.java). Start your own implemenation by changing this class.
-
-
