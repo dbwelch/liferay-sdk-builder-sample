@@ -1,5 +1,4 @@
 apply plugin: 'java'
-
 apply from: 'maven.gradle'
 apply from: 'https://raw.githubusercontent.com/brunofarache/liferay-mobile-sdk/master/formatter.gradle'
 format.workingDir = 'src/main/java'
@@ -19,19 +18,5 @@ configurations {
 	compile.exclude module: 'liferay-sdk-builder-sample'
 }
 
-task generate(type: JavaExec) {
-	group = 'Liferay'
-	description = 'Runs Liferay SDK Builder with arguments set in gradle.properties.'
-	main = 'com.liferay.mobile.sdk.SDKBuilder'
-	classpath = project.runtimeClasspath + configurations.compile
-
-	args = [
-		"platforms=$platforms",
-		"url=$url",
-		"context=$context",
-		"filter=$filter",
-		"packageName=$packageName",
-		"portalVersion=$portalVersion",
-		"destination=$destination"
-	]
-}
+apply from: 'https://raw.githubusercontent.com/brunofarache/liferay-mobile-sdk/master/sdk-builder.gradle'
+generate.classpath = project.runtimeClasspath + configurations.compile
